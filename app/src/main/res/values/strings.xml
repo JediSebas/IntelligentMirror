@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Intelligent Mirror</string>
+
+    <string name="name">Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="password">Password</string>
+    <string name="ip">Address IP, ex: 192.168.0.1</string>
+    <string name="login">Log in</string>
+    <string name="signup">Sign up</string>
+
+    <string name="imgDesc">Chosen image of your face</string>
+    <string name="choseImg">Chose image</string>
+    <string name="confirmPasswd">Confirm password</string>
+    <string name="email">Email</string>
+</resources>
