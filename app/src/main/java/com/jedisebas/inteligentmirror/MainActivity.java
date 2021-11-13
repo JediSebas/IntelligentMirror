@@ -9,12 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Class provide sign in the app and anchor to the SignUpActivity.
+ * @author JediSebas
+ */
 
-    /**
-     * Class provide sign in the app and anchor to the SignUpActivity.
-     * @author JediSebas
-     */
+public class MainActivity extends AppCompatActivity {
 
     private static boolean loginOk;
 

@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JDBCLogin implements Runnable {
+/**
+ * Class is used to log in account.
+ */
 
-    /**
-     * Class is used to log in account.
-     */
+public class JDBCLogin implements Runnable {
 
     public Thread t;
     String nick, password, ip;

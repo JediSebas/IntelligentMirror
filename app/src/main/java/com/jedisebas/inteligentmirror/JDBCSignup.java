@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JDBCSignup implements Runnable {
+/**
+ * Class provide MySQL connection and insert new account data.
+ */
 
-    /**
-     * Class provide MySQL connection and insert new account data.
-     */
+public class JDBCSignup implements Runnable {
 
     public Thread t;
     String nick, name, lastname, password, email, ip;

@@ -1,8 +1,11 @@
 package com.jedisebas.inteligentmirror;
 
+/**
+ * Class change the name into another name which is used in database to log in.
+ */
+
 abstract public class Nickname {
     /**
-     * Class change the name into another name which is used in database to log in.
      * @param originalNickName Original name which is name + lastname
      * @return String which is name_lastname
      */

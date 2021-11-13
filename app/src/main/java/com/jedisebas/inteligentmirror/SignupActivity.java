@@ -12,11 +12,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class SignupActivity extends AppCompatActivity {
+/**
+ * Class let create a new account.
+ */
 
-    /**
-     * Class let create a new account.
-     */
+public class SignupActivity extends AppCompatActivity {
 
     private static final int IMAGE_PICK_CODE = 1000;
     Uri imgUri;
