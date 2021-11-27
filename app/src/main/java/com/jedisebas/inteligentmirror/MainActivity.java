@@ -16,7 +16,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static boolean loginOk;
+    // temporary initialized
+    private static boolean loginOk = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 String nick = Nickname.changeProfileName((nameS + " " + lastnameS).toLowerCase());
                 JDBCLogin jdbcLogin = new JDBCLogin(nick, passwordS, ipS);
                 jdbcLogin.t.start();
-
                 try {
                     jdbcLogin.t.join();
                 } catch (InterruptedException e) {
@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (loginOk){
                     Intent intent;
-                    //TODO next activity
+                    intent = new Intent(MainActivity.this, MenuActivity.class);
+                    startActivity(intent);
                 }
             }
         });
