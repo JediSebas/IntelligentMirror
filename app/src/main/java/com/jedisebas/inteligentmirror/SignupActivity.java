@@ -50,6 +50,10 @@ public class SignupActivity extends AppCompatActivity {
             if (ActivityCompat.checkSelfPermission(
                     SignupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(SignupActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
+                if (ActivityCompat.checkSelfPermission(
+                        SignupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    pickImageFromGallery();
+                }
             } else {
                 pickImageFromGallery();
             }
