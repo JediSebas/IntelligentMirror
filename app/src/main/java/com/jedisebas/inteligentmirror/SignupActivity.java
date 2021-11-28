@@ -2,8 +2,11 @@ package com.jedisebas.inteligentmirror;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 public class SignupActivity extends AppCompatActivity {
 
+    private static final int PICK_FROM_GALLERY = 1;
     private static final int IMAGE_PICK_CODE = 1000;
     Uri imgUri;
     ImageView img;
@@ -42,7 +46,14 @@ public class SignupActivity extends AppCompatActivity {
         img = findViewById(R.id.signImg);
 
         // Chose picture Button
-        chose.setOnClickListener(v -> pickImageFromGallery());
+        chose.setOnClickListener(v -> {
+            if (ActivityCompat.checkSelfPermission(
+                    SignupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(SignupActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
+            } else {
+                pickImageFromGallery();
+            }
+        });
 
         // Signup Button
         signup.setOnClickListener(v -> {
