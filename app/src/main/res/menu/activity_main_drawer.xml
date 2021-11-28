@@ -16,5 +16,13 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_raspberry"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_raspberry" />
+        <item
+            android:id="@+id/nav_progressbar"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_progressbar" />
     </group>
 </menu>

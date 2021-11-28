@@ -9,15 +9,15 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="62dp">
 
             <!--TODO improve img and button view -->
             <ImageView
                 android:id="@+id/signImg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars"
-                android:contentDescription="@string/imgDesc" />
+                android:layout_height="100dp"
+                android:contentDescription="@string/imgDesc"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <Button
                 android:id="@+id/signpicBtn"
