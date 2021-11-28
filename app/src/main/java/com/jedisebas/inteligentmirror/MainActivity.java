@@ -16,8 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    // temporary initialized
-    private static boolean loginOk = true;
+    private static boolean loginOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if (loginOk){
+                if (loginOk || true){ //temporary!!!
                     Intent intent;
                     intent = new Intent(MainActivity.this, MenuActivity.class);
                     startActivity(intent);

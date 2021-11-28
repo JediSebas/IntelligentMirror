@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,23 +15,16 @@ import com.jedisebas.inteligentmirror.R;
 
 public class ProgressbarFragment extends Fragment {
 
-    private ProgressbarViewModel mViewModel;
-
-    public static ProgressbarFragment newInstance() {
-        return new ProgressbarFragment();
-    }
+    private ProgressbarViewModel progressbarViewModel;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_progressbar, container, false);
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        progressbarViewModel =
+                new ViewModelProvider(this).get(ProgressbarViewModel.class);
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ProgressbarViewModel.class);
-        // TODO: Use the ViewModel
-    }
+        View root = inflater.inflate(R.layout.fragment_progressbar, container, false);
 
+        return root;
+    }
 }

@@ -3,5 +3,6 @@ package com.jedisebas.inteligentmirror.ui.raspberry;
 import androidx.lifecycle.ViewModel;
 
 public class RaspberryViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+    public RaspberryViewModel() {
+    }
 }
