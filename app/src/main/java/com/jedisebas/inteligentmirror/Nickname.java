@@ -22,6 +22,6 @@ abstract public class Nickname {
                 finalNickName.append(originalNickName.charAt(i));
             }
         }
-        return finalNickName.toString();
+        return finalNickName.toString().toLowerCase();
     }
 }

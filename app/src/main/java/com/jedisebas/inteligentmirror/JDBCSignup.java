@@ -30,7 +30,7 @@ public class JDBCSignup implements Runnable {
         String USER = "user";
         String PASS = "user"; // test password
         //TODO password hash
-        String QUERY = "INSERT INTO `userss` (`id`, `name`, `lastname`, `password`, `email`, `nick`) VALUES " +
+        String QUERY = "INSERT INTO `users` (`id`, `name`, `lastname`, `password`, `email`, `nick`) VALUES " +
                 "(NULL, '"+name+"', '"+lastname+"', '"+password+"', '"+email+"', '"+nick+"');";
         try {
             Class.forName("com.mysql.jdbc.Driver");
