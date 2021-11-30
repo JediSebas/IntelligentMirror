@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 
 import com.jedisebas.inteligentmirror.R;
 
+/**
+ * Class that show resource usage of mirror.
+ */
+
 public class RaspberryFragment extends Fragment {
 
     private RaspberryViewModel raspberryViewModel;

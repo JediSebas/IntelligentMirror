@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 
 import com.jedisebas.inteligentmirror.R;
 
+/**
+ * Class that show the progress of learning neural network.
+ */
+
 public class ProgressbarFragment extends Fragment {
 
     private ProgressbarViewModel progressbarViewModel;

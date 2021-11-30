@@ -21,6 +21,10 @@ import com.jedisebas.inteligentmirror.SignupActivity;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/**
+ * Class that let preview pictures and download that.
+ */
+
 public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
@@ -34,6 +38,7 @@ public class GalleryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
 
         WebView webView = root.findViewById(R.id.web);
+        //TODO WebApp
         webView.loadUrl("https://dembol23.github.io/smart-mirror-page/photos.html");
 
         return root;

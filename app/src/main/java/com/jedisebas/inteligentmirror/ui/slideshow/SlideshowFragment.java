@@ -11,6 +11,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.jedisebas.inteligentmirror.R;
 
+/**
+ * Class that let manage position of elements in mirror.
+ */
+
 public class SlideshowFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;

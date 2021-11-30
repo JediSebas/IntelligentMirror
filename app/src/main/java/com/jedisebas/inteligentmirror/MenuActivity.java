@@ -18,6 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.jedisebas.inteligentmirror.databinding.ActivityMenuBinding;
 
+/**
+ * Class that contain all fragments.
+ */
+
 public class MenuActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
