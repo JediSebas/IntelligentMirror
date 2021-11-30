@@ -14,6 +14,7 @@ public class JDBCLogin implements Runnable {
 
     public Thread t;
     String nick, password, ip;
+    public static String name, lastname, email;
 
     public JDBCLogin(String nick, String password, String ip) {
         t = new Thread(this);
@@ -28,7 +29,9 @@ public class JDBCLogin implements Runnable {
         String USER = "user";
         String PASS = "user"; // test password
         //TODO password hash
-        String QUERY = "SELECT nick FROM userss WHERE password=\""+password+"\"";
+        //TODO email instead of name and lastname
+        String QUERY = "SELECT nick FROM users WHERE password=\""+password+"\"";
+        String QUERY2 = "SELECT name, lastname, email FROM users WHERE email=\""+password+"\"";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("DRIVER STILL WORKS BTW");
@@ -42,6 +45,18 @@ public class JDBCLogin implements Runnable {
             rs.next();
             String n = rs.getString("nick");
             MainActivity.setLoginOk(n.equals(nick));
+        } catch (SQLException throwables) {
+            System.out.println("HERE IS SOMETHING WRONG");
+            throwables.printStackTrace();
+        }
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY2);
+            rs.next();
+            name = rs.getString("name");
+            lastname = rs.getString("lastname");
+            email = rs.getString("email");
         } catch (SQLException throwables) {
             System.out.println("HERE IS SOMETHING WRONG");
             throwables.printStackTrace();
