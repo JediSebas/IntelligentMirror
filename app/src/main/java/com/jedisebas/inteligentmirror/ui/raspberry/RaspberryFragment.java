@@ -16,9 +16,6 @@ import com.jedisebas.inteligentmirror.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.Series;
-
-import java.sql.SQLOutput;
 
 /**
  * Class that show resource usage of mirror.
@@ -58,120 +55,100 @@ public class RaspberryFragment extends Fragment {
      //   line_graph.addSeries(nextLines);
 
         RaspberryGraph raspberry = new RaspberryGraph();
-        raspberry.setY(-10);
-        Iterate i = new Iterate(raspberry);
-        Draw d = new Draw(raspberry);
+        raspberry.setY(20);
 
-        i.t.start();
-        d.t.start();
+        new Thread(raspberry::draw).start();
+        new Thread(raspberry::iterate).start();
 
         return root;
     }
 
     private class RaspberryGraph{
 
-        int x=1, y;
-        boolean end = false;
+        private int y;
+        private DataPoint[] pointTable = new DataPoint[9];
 
         RaspberryGraph() {
-        }
-
-        void endGraph() {
-            end = true;
+            for (int i=0; i<=8; i++) {
+                pointTable[i] = new DataPoint(0, 0);
+            }
         }
 
         void setY(int y) {
             this.y = y;
         }
 
-        synchronized void iterate() {
-            if (y>0) {
-                for (;y>0; y--) {
-                    try {
-                        wait(1000);
-                        notify();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                for (;y<0; y++) {
-                    try {
-                        wait(1000);
-                        notify();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        void setHeight() {
+            LineGraphSeries<DataPoint> nothing = new LineGraphSeries<>(new DataPoint[] {
+                    new DataPoint(0, 20)
+            });
+            line_graph.addSeries(nothing);
+        }
+
+        void levelUpTable() {
+            line_graph.removeAllSeries();
+            for (int i=0; i<8; i++) {
+                pointTable[i] = new DataPoint(i, pointTable[i+1].getY());
             }
-            try {
-                endGraph();
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            LineGraphSeries<DataPoint> rePaint = new LineGraphSeries<>(pointTable);
+            line_graph.addSeries(rePaint);
+            setHeight();
         }
 
         synchronized void draw() {
-            System.out.println("-----------WYBUDZONY NA PCOZATKU-----------");
-            DataPoint d = new DataPoint(x, y);
-            System.out.println("-----------Y w d-----------" + d.getY());
-            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                    new DataPoint(d.getX()-1, 0),
-                    d
-            });
-            line_graph.addSeries(series);
-            x++;
-            try {
-                System.out.println("-----------SPI POD KONIEC-----------");
-                wait(1000);
+            for (int x = 1; x <= 8; x++) {
+                setHeight();
+                DataPoint d = new DataPoint(x, y);
+                pointTable[0] = new DataPoint(0, d.getY());
+                pointTable[x] = d;
+                System.out.println("-----------Y w d-----------" + d.getY());
+
+                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
+                        pointTable[x-1],
+                        pointTable[x]
+                });
+
+                line_graph.addSeries(series);
+
                 notify();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("-----------WYBUDZONY POD KONIEC-----------");
-            if (end) {
                 try {
                     wait();
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        }
-    }
 
-    private class Iterate implements Runnable {
-
-        RaspberryGraph R;
-        Thread t;
-
-        Iterate(RaspberryGraph R) {
-            t = new Thread(this);
-            this.R = R;
-        }
-
-        @Override
-        public void run() {
             while (true) {
-                R.iterate();
+                levelUpTable();
+                DataPoint d = new DataPoint(8, y);
+                pointTable[8] = d;
+                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(pointTable);
+                notify();
+                try {
+                    wait();
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-    }
 
-    private class Draw implements Runnable {
-
-        RaspberryGraph R;
-        Thread t;
-
-        Draw(RaspberryGraph R) {
-            t = new Thread(this);
-            this.R = R;
         }
 
-        @Override
-        public void run() {
+        synchronized void iterate() {
             while (true) {
-                R.draw();
+                if (y > 0) {
+                    y--;
+                } else {
+                    y++;
+                }
+                notify();
+                try {
+                    wait();
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
