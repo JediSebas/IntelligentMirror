@@ -9,17 +9,59 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/cpuTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/cpu"
             android:textAlignment="center"
             android:textSize="24sp" />
 
         <com.jjoe64.graphview.GraphView
+            android:id="@+id/line_graph_cpu"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/line_graph"/>
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/ramTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ram"
+            android:textAlignment="center"
+            android:layout_marginTop="30dp"
+            android:textSize="24sp" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/line_graph_ram"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/tempTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/temp"
+            android:textAlignment="center"
+            android:layout_marginTop="30dp"
+            android:textSize="24sp" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/line_graph_temp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/wifiTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wifi"
+            android:textAlignment="center"
+            android:layout_marginTop="30dp"
+            android:textSize="24sp" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/line_graph_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
 
     </LinearLayout>
 </ScrollView>

@@ -28,6 +28,11 @@
     <string name="menu_progressbar">Progress bar</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
+    <string name="cpu">CPU usage</string>
+    <string name="ram">RAM usage</string>
+    <string name="temp">Temperature</string>
+    <string name="wifi">WiFi</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

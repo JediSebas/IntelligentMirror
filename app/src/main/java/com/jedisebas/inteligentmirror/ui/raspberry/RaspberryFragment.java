@@ -24,7 +24,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 public class RaspberryFragment extends Fragment {
 
     private RaspberryViewModel raspberryViewModel;
-    GraphView line_graph;
+    GraphView line_graph, ram, temp, wifi;
+    GraphView[] graphArray = new GraphView[4];
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,29 +34,13 @@ public class RaspberryFragment extends Fragment {
                 new ViewModelProvider(this).get(RaspberryViewModel.class);
 
         View root = inflater.inflate(R.layout.fragment_raspberry, container, false);
-        line_graph = root.findViewById(R.id.line_graph);
-        LineGraphSeries<DataPoint> lineSeries = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-     //   line_graph.addSeries(lineSeries);
-        LineGraphSeries<DataPoint> nextLines = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(2, -1),
-                new DataPoint(3, 5),
-                new DataPoint(4, 6),
-                new DataPoint(5, 21),
-                new DataPoint(6, 5),
-                new DataPoint(7, 1),
-                new DataPoint(8,3)
-        });
-        nextLines.setColor(Color.RED);
-     //   line_graph.addSeries(nextLines);
+        graphArray[0] = line_graph = root.findViewById(R.id.line_graph_cpu);
+        graphArray[1] = ram = root.findViewById(R.id.line_graph_ram);
+        graphArray[2] = temp = root.findViewById(R.id.line_graph_temp);
+        graphArray[3] = wifi = root.findViewById(R.id.line_graph_wifi);
+
 
         RaspberryGraph raspberry = new RaspberryGraph();
-        raspberry.setY(20);
 
         new Thread(raspberry::draw).start();
         new Thread(raspberry::iterate).start();
@@ -65,12 +50,23 @@ public class RaspberryFragment extends Fragment {
 
     private class RaspberryGraph{
 
-        private int y;
+        private int y, y_ram, y_temp, y_wifi;
+
         private DataPoint[] pointTable = new DataPoint[9];
+        private DataPoint[] pointTable_ram = new DataPoint[9];
+        private DataPoint[] pointTable_temp = new DataPoint[9];
+        private DataPoint[] pointTable_wifi = new DataPoint[9];
+        private DataPoint[][] pointArray = new DataPoint[4][];
 
         RaspberryGraph() {
-            for (int i=0; i<=8; i++) {
-                pointTable[i] = new DataPoint(0, 0);
+            pointArray[0] = pointTable;
+            pointArray[1] = pointTable_ram;
+            pointArray[2] = pointTable_temp;
+            pointArray[3] = pointTable_wifi;
+            for (DataPoint[] arr: pointArray) {
+                for (int i=0; i<=8; i++) {
+                    arr[i] = new DataPoint(i, 0);
+                }
             }
         }
 
@@ -78,52 +74,52 @@ public class RaspberryFragment extends Fragment {
             this.y = y;
         }
 
-        void setHeight() {
-            LineGraphSeries<DataPoint> nothing = new LineGraphSeries<>(new DataPoint[] {
-                    new DataPoint(0, 20)
-            });
-            line_graph.addSeries(nothing);
+        void setY_ram(int y) {
+            this.y_ram = y;
+        }
+
+        void setY_temp(int y) {
+            this.y_temp = y;
+        }
+
+        void setY_wifi(int y) {
+            this.y_wifi = y;
         }
 
         void levelUpTable() {
-            line_graph.removeAllSeries();
-            for (int i=0; i<8; i++) {
-                pointTable[i] = new DataPoint(i, pointTable[i+1].getY());
+            for (int j=0; j<4; j++) {
+                graphArray[j].removeAllSeries();
+                for (int i = 0; i < 8; i++) {
+                    pointArray[j][i] = new DataPoint(i, pointArray[j][i + 1].getY());
+                }
+                LineGraphSeries<DataPoint> rePaint = new LineGraphSeries<>(pointArray[j]);
+                rePaint.setThickness(10);
+                switch (j) {
+                    case 1:
+                        rePaint.setColor(Color.MAGENTA);
+                        break;
+                    case 2:
+                        rePaint.setColor(Color.RED);
+                        break;
+                    case 3:
+                        rePaint.setColor(Color.YELLOW);
+                        break;
+                }
+                graphArray[j].addSeries(rePaint);
             }
-            LineGraphSeries<DataPoint> rePaint = new LineGraphSeries<>(pointTable);
-            line_graph.addSeries(rePaint);
-            setHeight();
         }
 
         synchronized void draw() {
-            for (int x = 1; x <= 8; x++) {
-                setHeight();
-                DataPoint d = new DataPoint(x, y);
-                pointTable[0] = new DataPoint(0, d.getY());
-                pointTable[x] = d;
-                System.out.println("-----------Y w d-----------" + d.getY());
-
-                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                        pointTable[x-1],
-                        pointTable[x]
-                });
-
-                line_graph.addSeries(series);
-
-                notify();
-                try {
-                    wait();
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
             while (true) {
-                levelUpTable();
                 DataPoint d = new DataPoint(8, y);
+                DataPoint d_ram = new DataPoint(8, y_ram);
+                DataPoint d_temp = new DataPoint(8, y_temp);
+                DataPoint d_wifi = new DataPoint(8, y_wifi);
                 pointTable[8] = d;
-                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(pointTable);
+                pointTable_ram[8] = d_ram;
+                pointTable_temp[8] = d_temp;
+                pointTable_wifi[8] = d_wifi;
+                levelUpTable();
                 notify();
                 try {
                     wait();
@@ -137,11 +133,10 @@ public class RaspberryFragment extends Fragment {
 
         synchronized void iterate() {
             while (true) {
-                if (y > 0) {
-                    y--;
-                } else {
-                    y++;
-                }
+                y = randint();
+                y_ram = randint();
+                y_temp = randint();
+                y_wifi = randint();
                 notify();
                 try {
                     wait();
@@ -150,6 +145,16 @@ public class RaspberryFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
+        }
+
+        int randint() {
+            double x;
+            do {
+                x = Math.random();
+                x *= 10;
+                x = Math.round(x);
+            } while (x>8);
+            return (int) x;
         }
     }
 }
