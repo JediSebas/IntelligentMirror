@@ -4,7 +4,7 @@
     <string name="name">Name</string>
     <string name="lastname">Last Name</string>
     <string name="password">Password</string>
-    <string name="ip">Address IP, ex: 192.168.0.1</string>
+    <string name="ip">Address IP, e.g.: 192.168.0.1</string>
     <string name="login">Log in</string>
     <string name="signup">Sign up</string>
     <string name="hello">Hello</string>
@@ -25,8 +25,14 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Personalization</string>
     <string name="menu_raspberry">Raspberry monitor</string>
+    <string name="menu_event">Event</string>
     <string name="menu_progressbar">Progress bar</string>
     <string name="title_activity_settings">SettingsActivity</string>
+
+    <string name="date">Click to choose date</string>
+    <string name="hour">Click to choose hour</string>
+    <string name="event_name">Name the event e.g. Birthday</string>
+    <string name="event_days">The event will appear x days before</string>
 
     <string name="cpu">CPU usage</string>
     <string name="ram">RAM usage</string>
@@ -47,4 +53,5 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="event_btn">save event</string>
 </resources>

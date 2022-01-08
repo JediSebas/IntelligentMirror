@@ -30,6 +30,12 @@
         tools:layout="@layout/fragment_raspberry" />
 
     <fragment
+        android:id="@+id/nav_event"
+        android:name="com.jedisebas.inteligentmirror.ui.event.EventFragment"
+        android:label="@string/menu_event"
+        tools:layout="@layout/fragment_event" />
+
+    <fragment
         android:id="@+id/nav_progressbar"
         android:name="com.jedisebas.inteligentmirror.ui.progressbar.ProgressbarFragment"
         android:label="@string/menu_progressbar"
