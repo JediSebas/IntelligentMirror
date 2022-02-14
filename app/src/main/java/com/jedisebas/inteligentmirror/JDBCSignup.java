@@ -12,11 +12,10 @@ import java.sql.Statement;
 public class JDBCSignup implements Runnable {
 
     public Thread t;
-    String nick, name, lastname, password, email, ip;
+    String name, lastname, password, email, ip;
 
-    public JDBCSignup(String nick, String name, String lastname, String password, String email, String ip) {
+    public JDBCSignup(String name, String lastname, String password, String email, String ip) {
         t = new Thread(this);
-        this.nick = nick;
         this.name = name;
         this.lastname = lastname;
         this.password = password;
@@ -30,8 +29,8 @@ public class JDBCSignup implements Runnable {
         String USER = "user";
         String PASS = "user"; // test password
         //TODO password hash
-        String QUERY = "INSERT INTO `users` (`id`, `name`, `lastname`, `password`, `email`, `nick`) VALUES " +
-                "(NULL, '"+name+"', '"+lastname+"', '"+password+"', '"+email+"', '"+nick+"');";
+        String QUERY = "INSERT INTO `user` (`id`, `name`, `lastname`, `password`, `email`) VALUES " +
+                "(NULL, '"+name+"', '"+lastname+"', '"+password+"', '"+email+"');";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("DRIVER STILL WORKS BTW");

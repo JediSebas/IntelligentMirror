@@ -3,17 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.17300724637681159" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="app/src/main/res/layout/content_menu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/event_include.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.10009057971014493" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.18115942028985507" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18115942028985507" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_progressbar.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/fragment_raspberry.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/gallery_include.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/main_include.xml" value="0.17300724637681159" />
+        <entry key="app/src/main/res/layout/grid_item_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/main_include.xml" value="0.67" />
         <entry key="app/src/main/res/layout/raspberry_include.xml" value="0.16893115942028986" />
         <entry key="app/src/main/res/layout/settings_activity.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/signup_include.xml" value="0.22" />
@@ -22,7 +24,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

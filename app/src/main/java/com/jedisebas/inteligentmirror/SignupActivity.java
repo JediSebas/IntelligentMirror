@@ -73,8 +73,7 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Not all data", Toast.LENGTH_LONG).show();
             } else {
                 if (passwordS.equals(confpasswordS)) {
-                    String nick = Nickname.changeProfileName(nameS + " " + lastnameS);
-                    JDBCSignup jdbcSignup = new JDBCSignup(nick, nameS, lastnameS, passwordS, emailS, ipS);
+                    JDBCSignup jdbcSignup = new JDBCSignup(nameS, lastnameS, passwordS, emailS, ipS);
                     jdbcSignup.t.start();
                     //TODO send image via ftp
                     Toast.makeText(getBaseContext(), "Creating account", Toast.LENGTH_LONG).show();

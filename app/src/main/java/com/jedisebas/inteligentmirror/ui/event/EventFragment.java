@@ -21,8 +21,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.jedisebas.inteligentmirror.Loggeduser;
 import com.jedisebas.inteligentmirror.R;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 
 /**
@@ -37,6 +43,9 @@ public class EventFragment extends Fragment {
     private Button saveEventBtn;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
+
+    private String dateS, hourS;
+    static boolean saveComplete;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -59,6 +68,7 @@ public class EventFragment extends Fragment {
             String mon = getMonthName(month);
             String date = dayOfMonth + " " + mon + " " + year;
             dateTv.setText(date);
+            dateS = year + "-" + month + "-" + dayOfMonth;
         };
 
         onTimeSetListener = (view, hourOfDay, minute) -> {
@@ -67,6 +77,7 @@ public class EventFragment extends Fragment {
 
             String time = h + ":" + m;
             hourTv.setText(time);
+            hourS = time + ":00";
         };
 
         saveEventBtn.setOnClickListener(v -> {
@@ -77,6 +88,19 @@ public class EventFragment extends Fragment {
             } else {
                 int howManyDays = Integer.parseInt(howManyDayss);
                 //TODO save Event in database
+                String entireDate = dateS + " " + hourS;
+                SaveEvent saveEvent = new SaveEvent(eventName, howManyDays, entireDate);
+                saveEvent.t.start();
+                System.out.println("Started saving");
+                Toast.makeText(getContext(), "Saving event...", Toast.LENGTH_LONG).show();
+                try {
+                    saveEvent.t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (saveComplete) {
+                    Toast.makeText(getContext(), "Event saving complete", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

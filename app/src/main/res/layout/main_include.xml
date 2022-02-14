@@ -8,22 +8,13 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/lognameEt"
+            android:id="@+id/logemailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:autofillHints="@string/name"
-            android:hint="@string/name" />
-
-        <EditText
-            android:id="@+id/loglastnameEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:autofillHints="@string/lastname"
-            android:hint="@string/lastname" />
+            android:autofillHints="@string/email"
+            android:hint="@string/email" />
 
         <EditText
             android:id="@+id/logpasswdEt"

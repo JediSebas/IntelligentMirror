@@ -13,12 +13,11 @@ import java.sql.Statement;
 public class JDBCLogin implements Runnable {
 
     public Thread t;
-    String nick, password, ip;
-    public static String name, lastname, email;
+    private String email, password, ip;
 
-    public JDBCLogin(String nick, String password, String ip) {
+    public JDBCLogin(String email, String password, String ip) {
         t = new Thread(this);
-        this.nick = nick;
+        this.email = email;
         this.password = password;
         this.ip = ip;
     }
@@ -29,9 +28,7 @@ public class JDBCLogin implements Runnable {
         String USER = "user";
         String PASS = "user"; // test password
         //TODO password hash
-        //TODO email instead of name and lastname
-        String QUERY = "SELECT nick FROM users WHERE password=\""+password+"\"";
-        String QUERY2 = "SELECT name, lastname, email FROM users WHERE email=\""+password+"\"";
+        String QUERY = "SELECT id, name, lastname, password FROM user WHERE email=\""+email+"\"";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("DRIVER STILL WORKS BTW");
@@ -43,20 +40,17 @@ public class JDBCLogin implements Runnable {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY);
             rs.next();
-            String n = rs.getString("nick");
-            MainActivity.setLoginOk(n.equals(nick));
-        } catch (SQLException throwables) {
-            System.out.println("HERE IS SOMETHING WRONG");
-            throwables.printStackTrace();
-        }
-        try {
-            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(QUERY2);
-            rs.next();
-            name = rs.getString("name");
-            lastname = rs.getString("lastname");
-            email = rs.getString("email");
+            int n1 = rs.getInt("id");
+            String n2 = rs.getString("name");
+            String n3 = rs.getString("lastname");
+            String n4 = rs.getString("password");
+
+            Loggeduser.id = n1;
+            Loggeduser.name = n2;
+            Loggeduser.lastname = n3;
+            Loggeduser.password = n4;
+
+            MainActivity.setLoginOk(n4.equals(password));
         } catch (SQLException throwables) {
             System.out.println("HERE IS SOMETHING WRONG");
             throwables.printStackTrace();

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.jedisebas.inteligentmirror.JDBCLogin;
+import com.jedisebas.inteligentmirror.Loggeduser;
 import com.jedisebas.inteligentmirror.R;
 
 /**
@@ -29,9 +30,7 @@ public class HomeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         TextView hello = root.findViewById(R.id.helloTv);
-        String welcome = "Hello" + JDBCLogin.name + " " + JDBCLogin.lastname;
-        hello.setText(welcome);
-
+        hello.setText("Hello " + Loggeduser.name);
         return root;
     }
 }

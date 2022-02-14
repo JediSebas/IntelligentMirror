@@ -4,10 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Class provide sign in the app and anchor to the SignUpActivity.
@@ -23,12 +30,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText name, lastname, password, ip;
+        EditText email, password, ip;
         TextView signup;
         Button login;
 
-        name = findViewById(R.id.lognameEt);
-        lastname = findViewById(R.id.loglastnameEt);
+        email = findViewById(R.id.logemailEt);
         password = findViewById(R.id.logpasswdEt);
         ip = findViewById(R.id.logaddressEt);
         signup = findViewById(R.id.logsignupTv);
@@ -42,16 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Log in button
         login.setOnClickListener(v -> {
-            String nameS = name.getText().toString().trim();
-            String lastnameS = lastname.getText().toString().trim();
+            String emailS = email.getText().toString().trim();
             String passwordS = password.getText().toString().trim();
             String ipS = ip.getText().toString().trim();
 
-            if (nameS.isEmpty() || lastnameS.isEmpty() || passwordS.isEmpty() || ipS.isEmpty()) {
+            if (emailS.isEmpty() || passwordS.isEmpty() || ipS.isEmpty()) {
                 Toast.makeText(getBaseContext(), "Not all data", Toast.LENGTH_LONG).show();
             } else {
-                String nick = Nickname.changeProfileName((nameS + " " + lastnameS).toLowerCase());
-                JDBCLogin jdbcLogin = new JDBCLogin(nick, passwordS, ipS);
+                JDBCLogin jdbcLogin = new JDBCLogin(emailS, passwordS, ipS);
                 jdbcLogin.t.start();
                 try {
                     jdbcLogin.t.join();
@@ -59,10 +63,15 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if (loginOk || true){ //temporary!!!
+                if (loginOk){
+                    Loggeduser.ip = ipS;
+                    Loggeduser.email = emailS;
+                    Loggeduser.isLogged = true;
                     Intent intent;
                     intent = new Intent(MainActivity.this, MenuActivity.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(getBaseContext(), "Wrong email or password", Toast.LENGTH_LONG).show();
                 }
             }
         });
