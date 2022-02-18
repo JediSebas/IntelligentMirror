@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         ip = findViewById(R.id.logaddressEt);
         signup = findViewById(R.id.logsignupTv);
         login = findViewById(R.id.loginBtn);
+
+
 
         // anchor to SignUpActivity
         signup.setOnClickListener(v -> {

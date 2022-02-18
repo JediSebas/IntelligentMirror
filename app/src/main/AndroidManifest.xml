@@ -8,6 +8,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InteligentMirror">
         <activity
-            android:name=".ui.gallery.DetailsActivity"
+            android:name=".ui.gallery.GalleryActivity"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
