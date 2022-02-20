@@ -3,17 +3,20 @@ package com.jedisebas.inteligentmirror.ui.gallery;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.jedisebas.inteligentmirror.R;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.util.ArrayList;
@@ -21,9 +24,10 @@ import java.util.ArrayList;
 public class GalleryActivity extends AppCompatActivity {
 
     GridView gridView;
-    private static ImageLoader imageLoader;
-    private static ArrayList<String> imageUrls;
-    private static ArrayList<Bitmap> imageList;
+    private ImageLoader imageLoader;
+    private ArrayList<String> imageUrls;
+    private ArrayList<Bitmap> imageList;
+    private ArrayList<ImageItem> imageItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,12 @@ public class GalleryActivity extends AppCompatActivity {
         imageUrls.add("https://www.wallpaperaccess.com/thumb/6789524.jpg");
         imageUrls.add("https://www.wallpaperaccess.com/thumb/1920884.png");
         imageUrls.add("https://www.wallpaperaccess.com/thumb/1275034.jpg");
+        imageUrls.add("https://www.wallpaperaccess.com/full/2288412.jpg");
+        imageUrls.add("https://www.wallpaperaccess.com/full/248569.jpg");
+        imageUrls.add("https://www.wallpaperaccess.com/full/261233.jpg");
+        imageUrls.add("https://www.wallpaperaccess.com/full/6789526.jpg");
 
-        ArrayList<ImageItem> imageItems = new ArrayList<>();
+        imageItems = new ArrayList<>();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getBaseContext())
                 .threadPriority(Thread.NORM_PRIORITY - 2)
@@ -57,25 +65,29 @@ public class GalleryActivity extends AppCompatActivity {
                 .writeDebugLogs()
                 .build();
 
-        imageLoader =  ImageLoader.getInstance();
+        imageLoader = ImageLoader.getInstance();
         imageLoader.init(config);
 
-        GettingBitmap gettingBitmap = new GettingBitmap();
-        gettingBitmap.t.start();
-
-        try {
-            gettingBitmap.t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        for (Bitmap bitmap : imageList) {
-            imageItems.add(new ImageItem(bitmap));
+        for (int i=0; i<imageUrls.size(); i++) {
+            imageItems.add(new ImageItem());
         }
 
         GridViewAdapter adapter = new GridViewAdapter(this, imageItems);
         gridView.setAdapter(adapter);
 
+        Refresh refresh = new Refresh();
+        refresh.execute();
+
+        GettingBitmap gettingBitmap = new GettingBitmap();
+        gettingBitmap.t.start();
+
+        gridView.setOnItemClickListener((adapterView, view, i, l) -> {
+            ImageItem item = (ImageItem) adapterView.getItemAtPosition(i);
+            Intent intent = new Intent(GalleryActivity.this, DownloadActivity.class);
+            DownloadActivity.bitmap = item.getImage();
+            startActivity(intent);
+            gridView.invalidateViews();
+        });
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -98,7 +110,8 @@ public class GalleryActivity extends AppCompatActivity {
         return true;
     }
 
-    private static class GettingBitmap implements Runnable {
+
+    private class GettingBitmap implements Runnable {
 
         public Thread t;
 
@@ -110,7 +123,19 @@ public class GalleryActivity extends AppCompatActivity {
         public void run() {
             for (String s: imageUrls) {
                 imageList.add(imageLoader.loadImageSync(s));
+                for (int i=0; i<imageList.size(); i++) {
+                    imageItems.get(i).setImage(imageList.get(i));
+                }
             }
+        }
+    }
+
+    private class Refresh extends AsyncTask<String, Void, View> {
+
+        @Override
+        protected View doInBackground(String... strings) {
+            gridView.invalidateViews();
+            return null;
         }
     }
 }

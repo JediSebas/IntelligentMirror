@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InteligentMirror">
         <activity
+            android:name=".ui.gallery.DownloadActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.gallery.GalleryActivity"
             android:exported="false" />
         <activity
