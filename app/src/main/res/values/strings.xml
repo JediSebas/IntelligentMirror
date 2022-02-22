@@ -39,6 +39,11 @@
     <string name="temp">Temperature</string>
     <string name="wifi">WiFi</string>
 
+    <string name="galleryItem">Picture made by mirror</string>
+    <string name="delete">delete</string>
+    <string name="download">download</string>
+    <string name="downloadAndDel">download and delete</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
