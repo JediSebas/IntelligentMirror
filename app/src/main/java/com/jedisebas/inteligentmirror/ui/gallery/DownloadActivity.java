@@ -13,14 +13,21 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.jedisebas.inteligentmirror.Loggeduser;
 import com.jedisebas.inteligentmirror.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DownloadActivity extends AppCompatActivity {
 
     static Bitmap bitmap;
+    static String fileName;
 
     private Button downloadBtn, deleteBtn, downloadAndDelBtn;
     private ImageView imageView;
@@ -46,9 +53,7 @@ public class DownloadActivity extends AppCompatActivity {
             }
         });
 
-        deleteBtn.setOnClickListener(v -> {
-            delete();
-        });
+        deleteBtn.setOnClickListener(v -> delete());
 
         downloadAndDelBtn.setOnClickListener(v -> {
             if (ActivityCompat.checkSelfPermission(DownloadActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -65,8 +70,7 @@ public class DownloadActivity extends AppCompatActivity {
         File myDir = new File(directory);
         myDir.mkdirs();
 
-        String fname = "Image.jpg";
-        File file = new File (myDir, fname);
+        File file = new File (myDir, fileName);
         if (file.exists ()) file.delete ();
         try {
             FileOutputStream out = new FileOutputStream(file);
@@ -86,6 +90,39 @@ public class DownloadActivity extends AppCompatActivity {
     }
 
     private void delete() {
-        //TODO delete
+        JDBCDeleteImage deleteImage = new JDBCDeleteImage();
+        deleteImage.t.start();
+    }
+
+    private class JDBCDeleteImage implements Runnable {
+
+        Thread t;
+
+        JDBCDeleteImage() {
+            t = new Thread(this);
+        }
+
+        @Override
+        public void run() {
+            String DB_URL = "jdbc:mysql://"+ Loggeduser.ip +"/mirror";
+            String USER = "user";
+            String PASS = "user"; // test password
+            //TODO password hash
+            String QUERY = "DELETE FROM `pictures` WHERE `name` = \"" + fileName + "\"";
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                System.out.println("DRIVER STILL WORKS BTW");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(QUERY);
+            } catch (SQLException throwables) {
+                System.out.println("HERE IS SOMETHING WRONG");
+                throwables.printStackTrace();
+            }
+        }
     }
 }

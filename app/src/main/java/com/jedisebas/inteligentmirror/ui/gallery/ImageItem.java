@@ -9,6 +9,7 @@ import com.jedisebas.inteligentmirror.R;
 public class ImageItem {
 
     private Bitmap image;
+    private String imageName;
 
     public ImageItem() {
         image = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ic_launcher_background);
@@ -24,5 +25,13 @@ public class ImageItem {
 
     public void setImage(Bitmap image) {
         this.image = image;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }
