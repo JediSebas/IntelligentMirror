@@ -41,23 +41,21 @@ public class SignupActivity extends AppCompatActivity {
         confpassword = findViewById(R.id.signconfEt);
         email = findViewById(R.id.signemailEt);
         ip = findViewById(R.id.signaddressEt);
-        chose = findViewById(R.id.signpicBtn);
         signup = findViewById(R.id.signupBtn);
-        img = findViewById(R.id.signImg);
 
         // Chose picture Button
-        chose.setOnClickListener(v -> {
-            if (ActivityCompat.checkSelfPermission(
-                    SignupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(SignupActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
-                if (ActivityCompat.checkSelfPermission(
-                        SignupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    pickImageFromGallery();
-                }
-            } else {
-                pickImageFromGallery();
-            }
-        });
+//        chose.setOnClickListener(v -> {
+//            if (ActivityCompat.checkSelfPermission(
+//                    SignupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(SignupActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
+//                if (ActivityCompat.checkSelfPermission(
+//                        SignupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+//                    pickImageFromGallery();
+//                }
+//            } else {
+//                pickImageFromGallery();
+//            }
+//        });
 
         // Signup Button
         signup.setOnClickListener(v -> {

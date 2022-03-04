@@ -1,136 +1,70 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TableRow
+        <EditText
+            android:id="@+id/signnameEt"
             android:layout_width="match_parent"
-            android:layout_height="62dp">
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/name"
+            android:ems="10"
+            android:hint="@string/name"
+            android:inputType="textPersonName" />
 
-            <!--TODO improve img and button view -->
-            <ImageView
-                android:id="@+id/signImg"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:contentDescription="@string/imgDesc"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <Button
-                android:id="@+id/signpicBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/choseImg" />
-
-        </TableRow>
-
-        <TableRow
+        <EditText
+            android:id="@+id/signlastnameEt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/lastname"
+            android:ems="10"
+            android:hint="@string/lastname"
+            android:inputType="textPersonName" />
 
-            <EditText
-                android:id="@+id/signnameEt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:layout_weight="2"
-                android:autofillHints="@string/name"
-                android:hint="@string/name" />
-        </TableRow>
-
-        <TableRow
+        <EditText
+            android:id="@+id/signpasswdEt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/password"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/signlastnameEt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:layout_weight="2"
-                android:autofillHints="@string/lastname"
-                android:hint="@string/lastname" />
-        </TableRow>
-
-        <TableRow
+        <EditText
+            android:id="@+id/signconfEt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/confirmPasswd"
+            android:ems="10"
+            android:hint="@string/confirmPasswd"
+            android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/signpasswdEt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:layout_weight="2"
-                android:autofillHints="@string/password"
-                android:hint="@string/password" />
-        </TableRow>
-
-        <TableRow
+        <EditText
+            android:id="@+id/signemailEt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/email"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
 
-            <EditText
-                android:id="@+id/signconfEt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:layout_weight="2"
-                android:autofillHints="@string/confirmPasswd"
-                android:hint="@string/confirmPasswd" />
-        </TableRow>
-
-        <TableRow
+        <EditText
+            android:id="@+id/signaddressEt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/ip"
+            android:ems="10"
+            android:hint="@string/ip"
+            android:inputType="date" />
 
-            <EditText
-                android:id="@+id/signemailEt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:layout_weight="2"
-                android:autofillHints="@string/email"
-                android:hint="@string/email" />
-        </TableRow>
-
-        <TableRow
+        <Button
+            android:id="@+id/signupBtn"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <EditText
-                android:id="@+id/signaddressEt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="date"
-                android:layout_weight="2"
-                android:autofillHints="@string/ip"
-                android:hint="@string/ip" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <Button
-                android:id="@+id/signupBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/signup" />
-        </TableRow>
-
-    </TableLayout>
-
-
+            android:layout_height="wrap_content"
+            android:text="@string/signup" />
+    </LinearLayout>
 </ScrollView>
