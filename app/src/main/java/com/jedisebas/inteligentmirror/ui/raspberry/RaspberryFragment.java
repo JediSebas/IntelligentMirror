@@ -12,10 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jedisebas.inteligentmirror.Loggeduser;
 import com.jedisebas.inteligentmirror.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Class that show resource usage of mirror.
@@ -39,6 +46,10 @@ public class RaspberryFragment extends Fragment {
         graphArray[2] = temp = root.findViewById(R.id.line_graph_temp);
         graphArray[3] = wifi = root.findViewById(R.id.line_graph_wifi);
 
+        for (GraphView v : graphArray) {
+            v.getViewport().setYAxisBoundsManual(true);
+            v.getViewport().setMaxY(100);
+        }
 
         RaspberryGraph raspberry = new RaspberryGraph();
 
@@ -149,12 +160,43 @@ public class RaspberryFragment extends Fragment {
 
         int randint() {
             double x;
-            do {
-                x = Math.random();
-                x *= 10;
-                x = Math.round(x);
-            } while (x>8);
+            x = Math.random();
+            x *= 100;
+            x = Math.round(x);
             return (int) x;
+        }
+    }
+
+    private class GetRaspberryInfo implements Runnable {
+
+        Thread t;
+
+        GetRaspberryInfo() {
+            t = new Thread(this);
+        }
+
+        @Override
+        public void run() {
+            String DB_URL = "jdbc:mysql://"+ Loggeduser.ip +"/mirror";
+            String USER = "user";
+            String PASS = "user"; // test password
+            //TODO password hash
+            String QUERY = "";
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                System.out.println("DRIVER STILL WORKS BTW");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(QUERY);
+
+            } catch (SQLException throwables) {
+                System.out.println("HERE IS SOMETHING WRONG");
+                throwables.printStackTrace();
+            }
         }
     }
 }
