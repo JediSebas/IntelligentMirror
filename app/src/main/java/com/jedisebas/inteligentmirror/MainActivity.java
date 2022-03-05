@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             if (emailS.isEmpty() || passwordS.isEmpty() || ipS.isEmpty()) {
                 Toast.makeText(getBaseContext(), "Not all data", Toast.LENGTH_LONG).show();
             } else {
+                Loggeduser.ip = ipS;
                 JDBCLogin jdbcLogin = new JDBCLogin(emailS, passwordS, ipS);
                 jdbcLogin.t.start();
                 try {
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (loginOk){
-                    Loggeduser.ip = ipS;
                     Loggeduser.email = emailS;
                     Loggeduser.isLogged = true;
                     Intent intent;
