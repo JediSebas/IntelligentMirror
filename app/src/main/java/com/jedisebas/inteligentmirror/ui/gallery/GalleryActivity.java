@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.jedisebas.inteligentmirror.ConnectionData;
 import com.jedisebas.inteligentmirror.Loggeduser;
 import com.jedisebas.inteligentmirror.MainActivity;
 import com.jedisebas.inteligentmirror.R;
@@ -160,9 +161,6 @@ public class GalleryActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            String DB_URL = "jdbc:mysql://"+ Loggeduser.ip +"/mirror";
-            String USER = "user";
-            String PASS = "user"; // test password
             //TODO password hash
             String QUERY = "SELECT name FROM `pictures` WHERE userid=" + Loggeduser.id;
             try {
@@ -172,7 +170,7 @@ public class GalleryActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             try {
-                Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                Connection conn = DriverManager.getConnection(ConnectionData.DB_URL, ConnectionData.USER, ConnectionData.PASS);
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(QUERY);
                 while (rs.next()) {

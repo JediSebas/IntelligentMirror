@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.jedisebas.inteligentmirror.ConnectionData;
 import com.jedisebas.inteligentmirror.Loggeduser;
 import com.jedisebas.inteligentmirror.R;
 
@@ -104,9 +105,6 @@ public class DownloadActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            String DB_URL = "jdbc:mysql://"+ Loggeduser.ip +"/mirror";
-            String USER = "user";
-            String PASS = "user"; // test password
             //TODO password hash
             String QUERY = "DELETE FROM `pictures` WHERE `name` = \"" + fileName + "\"";
             try {
@@ -116,7 +114,7 @@ public class DownloadActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             try {
-                Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                Connection conn = DriverManager.getConnection(ConnectionData.DB_URL, ConnectionData.USER, ConnectionData.PASS);
                 Statement stmt = conn.createStatement();
                 stmt.executeUpdate(QUERY);
             } catch (SQLException throwables) {

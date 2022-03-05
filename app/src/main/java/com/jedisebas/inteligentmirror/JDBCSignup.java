@@ -25,9 +25,6 @@ public class JDBCSignup implements Runnable {
 
     @Override
     public void run() {
-        String DB_URL = "jdbc:mysql://"+ip+"/mirror";
-        String USER = "user";
-        String PASS = "user"; // test password
         //TODO password hash
         String QUERY = "INSERT INTO `user` (`id`, `name`, `lastname`, `password`, `email`) VALUES " +
                 "(NULL, '"+name+"', '"+lastname+"', '"+password+"', '"+email+"');";
@@ -38,7 +35,7 @@ public class JDBCSignup implements Runnable {
             e.printStackTrace();
         }
         try {
-            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Connection conn = DriverManager.getConnection(ConnectionData.DB_URL, ConnectionData.USER, ConnectionData.PASS);
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(QUERY);
         } catch (SQLException throwables) {

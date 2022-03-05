@@ -1,5 +1,6 @@
 package com.jedisebas.inteligentmirror.ui.event;
 
+import com.jedisebas.inteligentmirror.ConnectionData;
 import com.jedisebas.inteligentmirror.Loggeduser;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,9 +23,6 @@ public class SaveEvent implements Runnable {
 
     @Override
     public void run() {
-        String DB_URL = "jdbc:mysql://"+ Loggeduser.ip+"/mirror";
-        String USER = "user";
-        String PASS = "user"; // test password
         String QUERY = "INSERT INTO `event` (`id`, `email`, `name`, `howlong`, `date`) " +
                 "VALUES (NULL, '"+ Loggeduser.email +"', '"+ name +"', '"+ days +"', '"+ date +"');";
 
@@ -35,7 +33,7 @@ public class SaveEvent implements Runnable {
             e.printStackTrace();
         }
         try {
-            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Connection conn = DriverManager.getConnection(ConnectionData.DB_URL, ConnectionData.USER, ConnectionData.PASS);
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(QUERY);
             EventFragment.saveComplete = true;

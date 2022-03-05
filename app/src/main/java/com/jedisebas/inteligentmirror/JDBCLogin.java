@@ -24,9 +24,6 @@ public class JDBCLogin implements Runnable {
 
     @Override
     public void run() {
-        String DB_URL = "jdbc:mysql://"+ip+"/mirror";
-        String USER = "user";
-        String PASS = "user"; // test password
         //TODO password hash
         String QUERY = "SELECT id, name, lastname, password FROM user WHERE email=\""+email+"\"";
         try {
@@ -36,7 +33,7 @@ public class JDBCLogin implements Runnable {
             e.printStackTrace();
         }
         try {
-            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Connection conn = DriverManager.getConnection(ConnectionData.DB_URL, ConnectionData.USER, ConnectionData.PASS);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY);
             rs.next();
