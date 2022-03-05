@@ -23,9 +23,8 @@ public class SaveEvent implements Runnable {
 
     @Override
     public void run() {
-        String QUERY = "INSERT INTO `event` (`id`, `email`, `name`, `howlong`, `date`) " +
-                "VALUES (NULL, '"+ Loggeduser.email +"', '"+ name +"', '"+ days +"', '"+ date +"');";
-
+        String QUERY = "INSERT INTO `event` (`id`, `userid`, `name`, `howlong`, `date`) " +
+                "VALUES (NULL, '"+ Loggeduser.id +"', '"+ name +"', '"+ days +"', '"+ date +"');";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("DRIVER STILL WORKS BTW");
