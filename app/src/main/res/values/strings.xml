@@ -13,6 +13,9 @@
     <string name="choseImg">Chose image</string>
     <string name="confirmPasswd">Confirm password</string>
     <string name="email">Email</string>
+    <string name="emailPasswd">Email password</string>
+    <string name="emailPasswdConf">Confirm email password</string>
+    <string name="nick">Nick</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

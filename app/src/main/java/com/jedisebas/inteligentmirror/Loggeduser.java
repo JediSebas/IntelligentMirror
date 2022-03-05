@@ -7,6 +7,8 @@ public class Loggeduser {
     public static String lastname;
     public static String password;
     public static String email;
+    public static String emailPassword;
+    public static String nick;
     public static boolean isLogged;
 
     public static String getLoggeduser() {
@@ -17,6 +19,8 @@ public class Loggeduser {
                 ", lastname='" + lastname + "'\n" +
                 ", password='" + password + "'\n" +
                 ", email='" + email + "'\n" +
+                ", emailpassword='" + emailPassword + "'\n" +
+                ", nick='" + nick + "'\n" +
                 ", isLogged='" + isLogged + "'\n}";
     }
 }

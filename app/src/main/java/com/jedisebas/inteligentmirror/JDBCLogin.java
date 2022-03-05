@@ -13,19 +13,17 @@ import java.sql.Statement;
 public class JDBCLogin implements Runnable {
 
     public Thread t;
-    private String email, password, ip;
+    private String email, password;
 
-    public JDBCLogin(String email, String password, String ip) {
+    public JDBCLogin(String email, String password) {
         t = new Thread(this);
         this.email = email;
         this.password = password;
-        this.ip = ip;
     }
 
     @Override
     public void run() {
-        //TODO password hash
-        String QUERY = "SELECT id, name, lastname, password FROM user WHERE email=\""+email+"\"";
+        String QUERY = "SELECT id, name, lastname, password, emailpassword, nick FROM user WHERE email=\""+email+"\"";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("DRIVER STILL WORKS BTW");
@@ -41,13 +39,18 @@ public class JDBCLogin implements Runnable {
             String n2 = rs.getString("name");
             String n3 = rs.getString("lastname");
             String n4 = rs.getString("password");
+            String n5 = rs.getString("emailpassword");
+            String n6 = rs.getString("nick");
 
             Loggeduser.id = n1;
             Loggeduser.name = n2;
             Loggeduser.lastname = n3;
             Loggeduser.password = n4;
+            Loggeduser.emailPassword = n5;
+            Loggeduser.nick = n6;
 
             MainActivity.setLoginOk(n4.equals(password));
+            System.out.println(Loggeduser.getLoggeduser());
         } catch (SQLException throwables) {
             System.out.println("HERE IS SOMETHING WRONG");
             throwables.printStackTrace();

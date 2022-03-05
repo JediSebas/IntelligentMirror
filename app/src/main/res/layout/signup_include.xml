@@ -53,6 +53,33 @@
             android:inputType="textEmailAddress" />
 
         <EditText
+            android:id="@+id/signemailpasswdEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/emailPasswd"
+            android:ems="10"
+            android:hint="@string/emailPasswd"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/signemailpasswdconfEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/emailPasswdConf"
+            android:ems="10"
+            android:hint="@string/emailPasswdConf"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/signnickEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/nick"
+            android:ems="10"
+            android:hint="@string/nick"
+            android:inputType="textPersonName" />
+
+        <EditText
             android:id="@+id/signaddressEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

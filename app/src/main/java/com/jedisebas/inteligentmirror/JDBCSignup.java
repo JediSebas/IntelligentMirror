@@ -12,22 +12,22 @@ import java.sql.Statement;
 public class JDBCSignup implements Runnable {
 
     public Thread t;
-    String name, lastname, password, email, ip;
+    String name, lastname, password, email, emailPasswd, nick;
 
-    public JDBCSignup(String name, String lastname, String password, String email, String ip) {
+    public JDBCSignup(String name, String lastname, String password, String email, String emailPasswd, String nick) {
         t = new Thread(this);
         this.name = name;
         this.lastname = lastname;
         this.password = password;
         this.email = email;
-        this.ip = ip;
+        this.emailPasswd = emailPasswd;
+        this.nick = nick;
     }
 
     @Override
     public void run() {
-        //TODO password hash
-        String QUERY = "INSERT INTO `user` (`id`, `name`, `lastname`, `password`, `email`) VALUES " +
-                "(NULL, '"+name+"', '"+lastname+"', '"+password+"', '"+email+"');";
+        String QUERY = "INSERT INTO `user` (`id`, `name`, `lastname`, `password`, `email`, `emailpassword`, `nick`) VALUES " +
+                "(NULL, '"+name+"', '"+lastname+"', '"+password+"', '"+email+"', '"+emailPasswd+"', '"+nick+"');";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("DRIVER STILL WORKS BTW");

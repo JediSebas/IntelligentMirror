@@ -32,7 +32,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        EditText name, lastname, password, confpassword, email, ip;
+        EditText name, lastname, password, confpassword, email, emailPassword, confEmailPassword, nick, ip;
         Button chose, signup;
 
         name = findViewById(R.id.signnameEt);
@@ -40,6 +40,9 @@ public class SignupActivity extends AppCompatActivity {
         password = findViewById(R.id.signpasswdEt);
         confpassword = findViewById(R.id.signconfEt);
         email = findViewById(R.id.signemailEt);
+        emailPassword = findViewById(R.id.signemailpasswdEt);
+        confEmailPassword = findViewById(R.id.signemailpasswdconfEt);
+        nick = findViewById(R.id.signnickEt);
         ip = findViewById(R.id.signaddressEt);
         signup = findViewById(R.id.signupBtn);
 
@@ -64,16 +67,20 @@ public class SignupActivity extends AppCompatActivity {
             String passwordS = password.getText().toString().trim();
             String confpasswordS = confpassword.getText().toString().trim();
             String emailS = email.getText().toString().trim();
+            String emailPasswdS = emailPassword.getText().toString().trim();
+            String confEmailPasswdS = confEmailPassword.getText().toString().trim();
+            String nickS = nick.getText().toString().trim();
             String ipS = ip.getText().toString().trim();
+            Loggeduser.ip = ipS;
 
             if (nameS.isEmpty() || lastnameS.isEmpty() || passwordS.isEmpty()
-                    || confpasswordS.isEmpty() || emailS.isEmpty() || ipS.isEmpty()) {
+                    || confpasswordS.isEmpty() || emailS.isEmpty() || emailPasswdS.isEmpty()
+                    || confEmailPasswdS.isEmpty() || ipS.isEmpty()) {
                 Toast.makeText(getBaseContext(), "Not all data", Toast.LENGTH_LONG).show();
             } else {
-                if (passwordS.equals(confpasswordS)) {
-                    JDBCSignup jdbcSignup = new JDBCSignup(nameS, lastnameS, passwordS, emailS, ipS);
+                if (passwordS.equals(confpasswordS) && emailPasswdS.equals(confEmailPasswdS)) {
+                    JDBCSignup jdbcSignup = new JDBCSignup(nameS, lastnameS, passwordS, emailS, emailPasswdS, nickS);
                     jdbcSignup.t.start();
-                    //TODO send image via ftp
                     Toast.makeText(getBaseContext(), "Creating account", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getBaseContext(), "Incorrect password", Toast.LENGTH_LONG).show();

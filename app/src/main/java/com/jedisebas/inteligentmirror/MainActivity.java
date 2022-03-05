@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Not all data", Toast.LENGTH_LONG).show();
             } else {
                 Loggeduser.ip = ipS;
-                JDBCLogin jdbcLogin = new JDBCLogin(emailS, passwordS, ipS);
+                JDBCLogin jdbcLogin = new JDBCLogin(emailS, passwordS);
                 jdbcLogin.t.start();
                 try {
                     jdbcLogin.t.join();
