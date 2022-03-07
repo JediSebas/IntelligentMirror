@@ -19,6 +19,9 @@
         android:theme="@style/Theme.InteligentMirror"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.account.AccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.gallery.DownloadActivity"
             android:exported="false" />
         <activity

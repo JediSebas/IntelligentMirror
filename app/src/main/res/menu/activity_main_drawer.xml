@@ -24,5 +24,9 @@
             android:id="@+id/nav_event"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_event" />
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_account" />
     </group>
 </menu>

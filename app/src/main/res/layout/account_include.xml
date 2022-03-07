@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/accountImage1"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:visibility="visible"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars"
+            android:contentDescription="@string/account_image" />
+
+        <ImageView
+            android:id="@+id/accountImage2"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:visibility="visible"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_weight="1"
+            android:contentDescription="@string/account_image" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/accountImage3"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:visibility="visible"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_weight="1"
+            android:contentDescription="@string/account_image" />
+
+        <ImageView
+            android:id="@+id/accountImage4"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:visibility="visible"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_weight="1"
+            android:contentDescription="@string/account_image" />
+
+    </TableRow>
+</TableLayout>

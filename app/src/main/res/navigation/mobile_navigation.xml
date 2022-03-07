@@ -34,4 +34,10 @@
         android:name="com.jedisebas.inteligentmirror.ui.event.EventFragment"
         android:label="@string/menu_event"
         tools:layout="@layout/fragment_event" />
+
+    <activity
+        android:id="@+id/nav_account"
+        android:name="com.jedisebas.inteligentmirror.ui.account.AccountActivity"
+        android:label="@string/menu_account"
+        tools:layout="@layout/activity_account" />
 </navigation>
