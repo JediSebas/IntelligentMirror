@@ -14,15 +14,29 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.jedisebas.inteligentmirror.ConnectionData;
+import com.jedisebas.inteligentmirror.Loggeduser;
+import com.jedisebas.inteligentmirror.MyFTPListener;
+import com.jedisebas.inteligentmirror.PathUtil;
 import com.jedisebas.inteligentmirror.R;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import it.sauronsoftware.ftp4j.FTPAbortedException;
+import it.sauronsoftware.ftp4j.FTPClient;
+import it.sauronsoftware.ftp4j.FTPDataTransferException;
+import it.sauronsoftware.ftp4j.FTPException;
+import it.sauronsoftware.ftp4j.FTPIllegalReplyException;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -31,7 +45,8 @@ public class AccountActivity extends AppCompatActivity {
 
     private ImageView iv1, iv2, iv3, iv4;
     private ImageView[] imageTable = new ImageView[4];
-    private Button pickImage;
+    private Button pickImage, sendImage;
+    private List<Uri> uris = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +58,9 @@ public class AccountActivity extends AppCompatActivity {
         imageTable[2] = iv3 = findViewById(R.id.accountImage3);
         imageTable[3] = iv4 = findViewById(R.id.accountImage4);
         pickImage = findViewById(R.id.pickImageBtn);
+        sendImage = findViewById(R.id.sendImageBtn);
+
+        sendImage.setVisibility(View.GONE);
 
         pickImage.setOnClickListener(view -> {
             if (ActivityCompat.checkSelfPermission(
@@ -55,6 +73,12 @@ public class AccountActivity extends AppCompatActivity {
             } else {
                 pickImageFromGallery();
             }
+        });
+
+        sendImage.setOnClickListener(view -> {
+            FTPSendImages ftpSendImages = new FTPSendImages();
+            ftpSendImages.t.start();
+            Toast.makeText(this, "Sending images...", Toast.LENGTH_SHORT).show();
         });
 
         ActionBar actionBar = getSupportActionBar();
@@ -105,6 +129,7 @@ public class AccountActivity extends AppCompatActivity {
                 //multiple images selected
                 for (int i = 0; i < clipData.getItemCount(); i++) {
                     Uri imageUri = clipData.getItemAt(i).getUri();
+                    uris.add(imageUri);
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(imageUri);
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
@@ -135,6 +160,55 @@ public class AccountActivity extends AppCompatActivity {
                     });
                 }
             }).start();
+
+            if (uris.size() < 4) {
+                Toast.makeText(this, "You need choose 4 images!", Toast.LENGTH_SHORT).show();
+            } else {
+                sendImage.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private class FTPSendImages implements Runnable {
+
+        Thread t;
+
+        FTPSendImages() {
+            t = new Thread(this);
+        }
+
+        @Override
+        public void run() {
+            FTPClient ftpClient = new FTPClient();
+            try {
+                ftpClient.connect(Loggeduser.ip, ConnectionData.PORT);
+                ftpClient.login(ConnectionData.USER, ConnectionData.PASS);
+
+                ftpClient.changeDirectory(ConnectionData.DIRECTORY_IN_MIRROR);
+                ftpClient.setType(FTPClient.TYPE_BINARY);
+                ftpClient.setPassive(true);
+                ftpClient.noop();
+
+                for (int i=0; i<4; i++) {
+                    String pathFile = PathUtil.getPath(getBaseContext(), uris.get(i));
+                    File file = new File(pathFile);
+                    ftpClient.upload(file, new MyFTPListener());
+                    String newFileName = ConnectionData.DIRECTORY_IN_MIRROR + Loggeduser.name + "_" +
+                            Loggeduser.lastname + "_" + Loggeduser.id + "_" + i + ".jpg";
+                    ftpClient.rename(file.getName(), newFileName);
+                }
+            } catch (FTPIllegalReplyException | IOException | FTPException | FTPAbortedException | FTPDataTransferException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (ftpClient.isConnected()) {
+                        ftpClient.logout();
+                        ftpClient.disconnect(true);
+                    }
+                } catch (IOException | FTPIllegalReplyException | FTPException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

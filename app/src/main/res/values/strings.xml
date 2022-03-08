@@ -65,5 +65,6 @@
     <string name="fragment_account">Account</string>
     <string name="menu_account">Account</string>
     <string name="account_image">Image picked from gallery</string>
-    <string name="pick_image">Pick image from gallery</string>
+    <string name="pick_image">Pick images from gallery</string>
+    <string name="send_image">Send images</string>
 </resources>
