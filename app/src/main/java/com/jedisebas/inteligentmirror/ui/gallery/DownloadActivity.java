@@ -19,11 +19,15 @@ import com.jedisebas.inteligentmirror.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import it.sauronsoftware.ftp4j.FTPClient;
+import it.sauronsoftware.ftp4j.FTPException;
+import it.sauronsoftware.ftp4j.FTPIllegalReplyException;
 
 public class DownloadActivity extends AppCompatActivity {
 
@@ -91,8 +95,10 @@ public class DownloadActivity extends AppCompatActivity {
     }
 
     private void delete() {
-        JDBCDeleteImage deleteImage = new JDBCDeleteImage();
-        deleteImage.t.start();
+        JDBCDeleteImage deleteImage1 = new JDBCDeleteImage();
+        FTPDelete deleteImage2 = new FTPDelete();
+        deleteImage1.t.start();
+        deleteImage2.t.start();
     }
 
     private class JDBCDeleteImage implements Runnable {
@@ -120,6 +126,42 @@ public class DownloadActivity extends AppCompatActivity {
             } catch (SQLException throwables) {
                 System.out.println("HERE IS SOMETHING WRONG");
                 throwables.printStackTrace();
+            }
+        }
+    }
+
+    private class FTPDelete implements Runnable {
+
+        Thread t;
+
+        FTPDelete() {
+            t = new Thread(this);
+        }
+
+        @Override
+        public void run() {
+            FTPClient ftpClient = new FTPClient();
+            try {
+                ftpClient.connect(Loggeduser.ip, ConnectionData.PORT);
+                ftpClient.login(ConnectionData.USER, ConnectionData.PASS);
+
+                ftpClient.changeDirectory(ConnectionData.DIRECTORY_WITH_IMAGES);
+                ftpClient.setType(FTPClient.TYPE_BINARY);
+                ftpClient.setPassive(true);
+                ftpClient.noop();
+
+                ftpClient.deleteFile(ConnectionData.DIRECTORY_WITH_IMAGES + fileName);
+            } catch (FTPIllegalReplyException | IOException | FTPException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (ftpClient.isConnected()) {
+                        ftpClient.logout();
+                        ftpClient.disconnect(true);
+                    }
+                } catch (IOException | FTPException | FTPIllegalReplyException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }

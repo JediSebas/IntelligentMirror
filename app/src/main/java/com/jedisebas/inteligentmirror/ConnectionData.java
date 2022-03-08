@@ -7,4 +7,5 @@ public class ConnectionData {
 
     public static final int PORT = 21;
     public static final String DIRECTORY_IN_MIRROR = "/IntelligentMirror/data/";
+    public static final String DIRECTORY_WITH_IMAGES = "/opt/lampp/htdocs/mirror/" ;
 }
