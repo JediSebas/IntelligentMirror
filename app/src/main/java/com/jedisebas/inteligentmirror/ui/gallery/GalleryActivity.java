@@ -5,17 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.jedisebas.inteligentmirror.ConnectionData;
 import com.jedisebas.inteligentmirror.Loggeduser;
-import com.jedisebas.inteligentmirror.MainActivity;
 import com.jedisebas.inteligentmirror.R;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -94,9 +90,6 @@ public class GalleryActivity extends AppCompatActivity {
         GridViewAdapter adapter = new GridViewAdapter(this, imageItems);
         gridView.setAdapter(adapter);
 
-        Refresh refresh = new Refresh();
-        refresh.execute();
-
         GettingBitmap gettingBitmap = new GettingBitmap();
         gettingBitmap.t.start();
 
@@ -106,8 +99,26 @@ public class GalleryActivity extends AppCompatActivity {
             DownloadActivity.bitmap = item.getImage();
             DownloadActivity.fileName = item.getImageName();
             startActivity(intent);
-            gridView.invalidateViews();
         });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            gridView.invalidateViews();
+                        }
+                    });
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -161,7 +172,6 @@ public class GalleryActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            //TODO password hash
             String QUERY = "SELECT name FROM `pictures` WHERE userid=" + Loggeduser.id;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -184,15 +194,6 @@ public class GalleryActivity extends AppCompatActivity {
                 System.out.println("HERE IS SOMETHING WRONG");
                 throwables.printStackTrace();
             }
-        }
-    }
-
-    private class Refresh extends AsyncTask<String, Void, View> {
-
-        @Override
-        protected View doInBackground(String... strings) {
-            gridView.invalidateViews();
-            return null;
         }
     }
 }
