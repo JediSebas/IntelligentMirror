@@ -27,6 +27,8 @@ public class SignupActivity extends AppCompatActivity {
     Uri imgUri;
     ImageView img;
 
+    public static boolean isNickTaken = false, isEmailTaken = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +83,22 @@ public class SignupActivity extends AppCompatActivity {
                 if (passwordS.equals(confpasswordS) && emailPasswdS.equals(confEmailPasswdS)) {
                     JDBCSignup jdbcSignup = new JDBCSignup(nameS, lastnameS, passwordS, emailS, emailPasswdS, nickS);
                     jdbcSignup.t.start();
-                    Toast.makeText(getBaseContext(), "Creating account", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Creating account", Toast.LENGTH_SHORT).show();
+                    try {
+                        jdbcSignup.t.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (isEmailTaken || isNickTaken) {
+                        if (isEmailTaken && isNickTaken) {
+                            Toast.makeText(this, "Email and nick are taken", Toast.LENGTH_SHORT).show();
+                        } else if (isEmailTaken) {
+                            Toast.makeText(this, "Email is taken", Toast.LENGTH_SHORT).show();
+                        } else if (isNickTaken) {
+                            Toast.makeText(this, "Nick is taken", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 } else {
                     Toast.makeText(getBaseContext(), "Incorrect password", Toast.LENGTH_LONG).show();
                     confpassword.setHighlightColor(Color.RED);
