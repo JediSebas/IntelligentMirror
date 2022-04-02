@@ -5,6 +5,8 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceFragmentCompat;
 
 /**
@@ -42,6 +44,27 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
+            ListPreference listPreference = findPreference("theme_preference");
+            listPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                CharSequence text = listPreference.getEntry();
+                String id = listPreference.getValue();
+                System.out.println("TEEEEXTTTTTTT: " + text);
+                System.out.println("TEEEEXTTTTTTT: " + id);
+                System.out.println("TEEEEXTTTTTTT: " + newValue);
+
+                switch(Integer.parseInt(id)) {
+                    case 2:
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        MainActivity.changeTheme("light");
+                        break;
+                    case 1:
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        MainActivity.changeTheme("dark");
+                        break;
+                }
+
+                return true;
+            });
         }
     }
 }

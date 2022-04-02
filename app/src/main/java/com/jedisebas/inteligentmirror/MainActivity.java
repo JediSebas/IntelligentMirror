@@ -1,8 +1,10 @@
 package com.jedisebas.inteligentmirror;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -29,9 +31,20 @@ public class MainActivity extends AppCompatActivity {
 
     private static boolean loginOk;
 
+    public static SharedPreferences currentTheme;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        currentTheme = getSharedPreferences("theme", 0);
+        String currentThemeOption = currentTheme.getString("option", "light");
+        if (currentThemeOption.equals("dark")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         setContentView(R.layout.activity_main);
 
         EditText email, password, ip;
@@ -86,5 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
     static void setLoginOk(boolean b) {
         loginOk = b;
+    }
+
+    public static void changeTheme(String theme) {
+        SharedPreferences.Editor editor = currentTheme.edit();
+        editor.putString("option", theme).commit();
     }
 }
