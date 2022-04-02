@@ -124,6 +124,7 @@ public class AccountActivity extends AppCompatActivity {
 
             List<Bitmap> bitmaps = new ArrayList<>();
             ClipData clipData = data.getClipData();
+            uris.clear();
 
             if (clipData != null) {
                 //multiple images selected
