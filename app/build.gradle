@@ -41,10 +41,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.1.1'
-    implementation files('/home/sebas/AndroidStudioProjects/mysql-connector-java-5.1.49/mysql-connector-java-5.1.49.jar')
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
-    implementation files('file:///home/sebas/AndroidStudioProjects/InteligentMirror/app/libs/universal-image-loader-1.9.5.jar')
-    implementation files('/home/sebas/AndroidStudioProjects/InteligentMirror/app/libs/ftp4j-1.7.2.jar')
+    implementation files('C:\\Users\\sebas\\Downloads\\lustro\\InteligentMirror\\app\\libs\\universal-image-loader-1.9.5.jar')
+    implementation files('C:\\Users\\sebas\\Downloads\\lustro\\InteligentMirror\\app\\libs\\ftp4j-1.7.2.jar')
+    implementation files('C:\\Users\\sebas\\Downloads\\lustro\\InteligentMirror\\app\\libs\\mysql-connector-java-5.1.49.jar')
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
