@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,13 +25,19 @@ import com.jedisebas.inteligentmirror.Loggeduser;
 import com.jedisebas.inteligentmirror.MyFTPListener;
 import com.jedisebas.inteligentmirror.PathUtil;
 import com.jedisebas.inteligentmirror.R;
+import com.jedisebas.inteligentmirror.ui.event.EventFragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import it.sauronsoftware.ftp4j.FTPAbortedException;
 import it.sauronsoftware.ftp4j.FTPClient;
@@ -45,7 +52,8 @@ public class AccountActivity extends AppCompatActivity {
 
     private ImageView iv1, iv2, iv3, iv4;
     private ImageView[] imageTable = new ImageView[4];
-    private Button pickImage, sendImage;
+    private Button pickImage, sendImage, saveIgSp;
+    private EditText loginEt, passwordEt;
     private List<Uri> uris = new ArrayList<>();
 
     @Override
@@ -59,6 +67,9 @@ public class AccountActivity extends AppCompatActivity {
         imageTable[3] = iv4 = findViewById(R.id.accountImage4);
         pickImage = findViewById(R.id.pickImageBtn);
         sendImage = findViewById(R.id.sendImageBtn);
+        saveIgSp = findViewById(R.id.igspSave);
+        loginEt = findViewById(R.id.accountEmailEt);
+        passwordEt = findViewById(R.id.accountPasswordEt);
 
         sendImage.setVisibility(View.GONE);
 
@@ -79,6 +90,17 @@ public class AccountActivity extends AppCompatActivity {
             FTPSendImages ftpSendImages = new FTPSendImages();
             ftpSendImages.t.start();
             Toast.makeText(this, "Sending images...", Toast.LENGTH_SHORT).show();
+        });
+
+        saveIgSp.setOnClickListener(view -> {
+            String login = loginEt.getText().toString().trim();
+            String password = passwordEt.getText().toString().trim();
+            if (login.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Not all data", Toast.LENGTH_SHORT).show();
+            } else {
+                JDBCSaveIgSp jdbcSaveIgSp = new JDBCSaveIgSp(login, password);
+                jdbcSaveIgSp.t.start();
+            }
         });
 
         ActionBar actionBar = getSupportActionBar();
@@ -209,6 +231,37 @@ public class AccountActivity extends AppCompatActivity {
                 } catch (IOException | FTPIllegalReplyException | FTPException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    private class JDBCSaveIgSp implements Runnable {
+
+        Thread t;
+        String login, password;
+
+        JDBCSaveIgSp(String login, String password) {
+            t = new Thread(this);
+            this.login = login;
+            this.password = password;
+        }
+
+        @Override
+        public void run() {
+            String QUERY = "UPDATE `user` SET `instagram_login` = '" + login + "', `instagram_password` = '" + password + "' WHERE `user`.`id` = " + Loggeduser.id + ";";
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                System.out.println("DRIVER STILL WORKS BTW");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                Connection conn = DriverManager.getConnection(ConnectionData.DB_URL, ConnectionData.USER, ConnectionData.PASS);
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(QUERY);
+            } catch (SQLException throwables) {
+                System.out.println("HERE IS SOMETHING WRONG");
+                throwables.printStackTrace();
             }
         }
     }

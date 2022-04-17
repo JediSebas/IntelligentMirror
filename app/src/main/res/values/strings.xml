@@ -67,4 +67,10 @@
     <string name="account_image">Image picked from gallery</string>
     <string name="pick_image">Pick images from gallery</string>
     <string name="send_image">Send images</string>
+
+    <string name="ig">Instagram logo</string>
+    <string name="sp">Spotify logo</string>
+    <string name="igspEmail">Login to Instagram and Spotify</string>
+    <string name="igspPassword">Password to Instagram and Spotify</string>
+    <string name="igspSave">Save Instagram and Spotify</string>
 </resources>
