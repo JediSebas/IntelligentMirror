@@ -75,7 +75,6 @@ public class EventFragment extends Fragment {
                 Toast.makeText(getContext(), "Not all data", Toast.LENGTH_SHORT).show();
             } else {
                 int howManyDays = Integer.parseInt(howManyDayss);
-                //TODO save Event in database
                 String entireDate = dateS + " " + hourS;
                 SaveEvent saveEvent = new SaveEvent(eventName, howManyDays, entireDate);
                 saveEvent.t.start();

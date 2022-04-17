@@ -178,7 +178,6 @@ public class RaspberryFragment extends Fragment {
 
         @Override
         public void run() {
-            //TODO password hash
             String QUERY = "";
             try {
                 Class.forName("com.mysql.jdbc.Driver");

@@ -111,7 +111,6 @@ public class DownloadActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            //TODO password hash
             String QUERY = "DELETE FROM `pictures` WHERE `name` = \"" + fileName + "\"";
             try {
                 Class.forName("com.mysql.jdbc.Driver");
