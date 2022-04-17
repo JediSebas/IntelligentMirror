@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         email = findViewById(R.id.logemailEt);
         password = findViewById(R.id.logpasswdEt);
-        ip = findViewById(R.id.logaddressEt);
+       // ip = findViewById(R.id.logaddressEt);
         signup = findViewById(R.id.logsignupTv);
         login = findViewById(R.id.loginBtn);
 
@@ -69,12 +69,12 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(v -> {
             String emailS = email.getText().toString().trim();
             String passwordS = password.getText().toString().trim();
-            String ipS = ip.getText().toString().trim();
+         //   String ipS = ip.getText().toString().trim();
 
-            if (emailS.isEmpty() || passwordS.isEmpty() || ipS.isEmpty()) {
+            if (emailS.isEmpty() || passwordS.isEmpty()/* || ipS.isEmpty() */) {
                 Toast.makeText(getBaseContext(), "Not all data", Toast.LENGTH_LONG).show();
             } else {
-                Loggeduser.ip = ipS;
+             //   Loggeduser.ip = ipS;
                 JDBCLogin jdbcLogin = new JDBCLogin(emailS, passwordS);
                 jdbcLogin.t.start();
                 try {

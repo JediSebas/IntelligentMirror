@@ -25,14 +25,14 @@
             android:autofillHints="@string/password"
             android:hint="@string/password" />
 
-        <EditText
-            android:id="@+id/logaddressEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="date"
-            android:autofillHints="@string/ip"
-            android:hint="@string/ip" />
+<!--        <EditText-->
+<!--            android:id="@+id/logaddressEt"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ems="10"-->
+<!--            android:inputType="date"-->
+<!--            android:autofillHints="@string/ip"-->
+<!--            android:hint="@string/ip" />-->
 
         <Button
             android:id="@+id/loginBtn"

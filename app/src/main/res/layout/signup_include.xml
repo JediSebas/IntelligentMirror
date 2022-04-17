@@ -79,14 +79,14 @@
             android:hint="@string/nick"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/signaddressEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/ip"
-            android:ems="10"
-            android:hint="@string/ip"
-            android:inputType="date" />
+<!--        <EditText-->
+<!--            android:id="@+id/signaddressEt"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:autofillHints="@string/ip"-->
+<!--            android:ems="10"-->
+<!--            android:hint="@string/ip"-->
+<!--            android:inputType="date" />-->
 
         <Button
             android:id="@+id/signupBtn"

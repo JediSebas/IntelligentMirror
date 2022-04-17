@@ -45,7 +45,7 @@ public class SignupActivity extends AppCompatActivity {
         emailPassword = findViewById(R.id.signemailpasswdEt);
         confEmailPassword = findViewById(R.id.signemailpasswdconfEt);
         nick = findViewById(R.id.signnickEt);
-        ip = findViewById(R.id.signaddressEt);
+      //  ip = findViewById(R.id.signaddressEt);
         signup = findViewById(R.id.signupBtn);
 
         // Chose picture Button
@@ -72,12 +72,12 @@ public class SignupActivity extends AppCompatActivity {
             String emailPasswdS = emailPassword.getText().toString().trim();
             String confEmailPasswdS = confEmailPassword.getText().toString().trim();
             String nickS = nick.getText().toString().trim();
-            String ipS = ip.getText().toString().trim();
-            Loggeduser.ip = ipS;
+         //   String ipS = ip.getText().toString().trim();
+        //    Loggeduser.ip = ipS;
 
             if (nameS.isEmpty() || lastnameS.isEmpty() || passwordS.isEmpty()
                     || confpasswordS.isEmpty() || emailS.isEmpty() || emailPasswdS.isEmpty()
-                    || confEmailPasswdS.isEmpty() || ipS.isEmpty()) {
+                    || confEmailPasswdS.isEmpty() /*|| ipS.isEmpty() */) {
                 Toast.makeText(getBaseContext(), "Not all data", Toast.LENGTH_LONG).show();
             } else {
                 if (passwordS.equals(confpasswordS) && emailPasswdS.equals(confEmailPasswdS)) {
