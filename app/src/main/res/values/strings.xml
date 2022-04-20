@@ -13,6 +13,7 @@
     <string name="choseImg">Chose image</string>
     <string name="confirmPasswd">Confirm password</string>
     <string name="email">Email</string>
+    <string name="emailAndNick">Email or nick</string>
     <string name="emailPasswd">Email password</string>
     <string name="emailPasswdConf">Confirm email password</string>
     <string name="nick">Nick</string>
@@ -73,4 +74,6 @@
     <string name="igspEmail">Login to Instagram and Spotify</string>
     <string name="igspPassword">Password to Instagram and Spotify</string>
     <string name="igspSave">Save Instagram and Spotify</string>
+
+    <string name="vm">Virtual mouse</string>
 </resources>

@@ -13,8 +13,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:autofillHints="@string/email"
-            android:hint="@string/email" />
+            android:autofillHints="@string/emailAndNick"
+            android:hint="@string/emailAndNick" />
 
         <EditText
             android:id="@+id/logpasswdEt"
