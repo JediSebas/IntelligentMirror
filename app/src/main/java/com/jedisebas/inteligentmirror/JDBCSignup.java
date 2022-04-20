@@ -37,7 +37,7 @@ public class JDBCSignup implements Runnable {
                 " `instagram_login`, `instagram_password`, `time_event`, `weather_event`, `gmail_event`," +
                 " `quote_event`, `calendar_event`, `photos_event`, `instagram_event`, `time_x`, `weather_x`," +
                 " `gmail_x`, `quote_x`, `calendar_x`, `photos_x`, `time_y`, `weather_y`, `gmail_y`, `quote_y`," +
-                " `calendar_y`, `photos_y`, `spotify_x`, `spotify_y`, `spotify_event`, 'vm')" +
+                " `calendar_y`, `photos_y`, `spotify_x`, `spotify_y`, `spotify_event`, `vm`)" +
                 " VALUES (NULL, '"+name+"', '"+lastname+"', '"+password+"', '"+email+"', '"+emailPasswd+"', '"+nick+"'," +
                 " NULL, NULL, b'0', b'0', b'0', b'0', b'0', b'0', b'0', '100', '200'," +
                 " '300', '400', '500', '600', '100', '200', '300', '400', '500', '600', '700', '700', b'0', b'1');";
