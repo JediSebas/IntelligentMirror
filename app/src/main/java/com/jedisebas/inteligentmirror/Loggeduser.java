@@ -1,7 +1,7 @@
 package com.jedisebas.inteligentmirror;
 
 public class Loggeduser {
-    public static String ip = "192.168.0.50";
+    public static String ip = "192.168.193.50";
     public static int id;
     public static String name;
     public static String lastname;
