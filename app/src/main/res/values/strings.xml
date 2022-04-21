@@ -71,9 +71,9 @@
 
     <string name="ig">Instagram logo</string>
     <string name="sp">Spotify logo</string>
-    <string name="igspEmail">Login to Instagram and Spotify</string>
-    <string name="igspPassword">Password to Instagram and Spotify</string>
-    <string name="igspSave">Save Instagram and Spotify</string>
+    <string name="igspEmail">Login to Instagram</string>
+    <string name="igspPassword">Password to Instagram</string>
+    <string name="igspSave">Save Instagram</string>
 
     <string name="vm">Virtual mouse</string>
 </resources>
