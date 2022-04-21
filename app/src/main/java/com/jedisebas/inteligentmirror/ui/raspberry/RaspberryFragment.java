@@ -161,9 +161,12 @@ public class RaspberryFragment extends Fragment {
 
         int randint() {
             double x;
-            x = Math.random();
-            x *= 100;
-            x = Math.round(x);
+            do {
+                x = Math.random();
+                x *= 100;
+                x = Math.round(x);
+            } while (x > 60 || x < 40);
+
             return (int) x;
         }
     }
